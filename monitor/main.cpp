@@ -39,39 +39,48 @@ int main()
 
     char buffer[1024]{};
 
-    ssize_t bytesReceived = recvfrom(
-        socketFd,
-        buffer,
-        sizeof(buffer) - 1,
-        0,
-        nullptr,
-        nullptr
-    );
-
-    if (bytesReceived < 0)
+    while (true)
     {
-        std::cerr << "Failed to receive data\n";
-        close(socketFd);
-        return 1;
-    }
+        ssize_t bytesReceived = recvfrom(
+            socketFd,
+            buffer,
+            sizeof(buffer) - 1,
+            0,
+            nullptr,
+            nullptr
+        );
 
-    buffer[bytesReceived] = '\0';
+        if (bytesReceived < 0)
+        {
+            std::cerr << "Failed to receive data\n";
+            break;
+        }
 
-    try
-    {
-        Telemetry telemetry = parseTelemetry(buffer);
+        buffer[bytesReceived] = '\0';
 
-        std::cout
-            << "Device: " << telemetry.deviceId << '\n'
-            << "Temperature: " << telemetry.temperature << '\n'
-            << "Signal: " << telemetry.signalStrength << " dBm\n"
-            << "Sequence: " << telemetry.sequenceNumber << '\n';
-    }
-    catch (const std::exception& error)
-    {
-        std::cerr << "Invalid telemetry: "
-              << error.what()
-              << '\n';
+        try
+        {
+            Telemetry telemetry = parseTelemetry(buffer);
+
+            std::cout
+                << "Device: " << telemetry.deviceId
+                << " | Temperature: "
+                << telemetry.temperature
+                << " C"
+                << " | Signal: "
+                << telemetry.signalStrength
+                << " dBm"
+                << " | Sequence: "
+                << telemetry.sequenceNumber
+                << '\n';
+        }
+        catch (const std::exception& error)
+        {
+            std::cerr
+                << "Invalid telemetry: "
+                << error.what()
+                << '\n';
+        }
     }
 
     close(socketFd);
