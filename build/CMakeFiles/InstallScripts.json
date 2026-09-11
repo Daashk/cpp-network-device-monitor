@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/daashk/projects/cpp-network-device-monitor/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
