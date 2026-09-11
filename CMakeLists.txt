@@ -8,6 +8,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(
     device_monitor
     monitor/main.cpp
+    src/Telemetry.cpp
+)
+
+target_include_directories(
+    device_monitor
+    PRIVATE include
 )
 
 add_executable(

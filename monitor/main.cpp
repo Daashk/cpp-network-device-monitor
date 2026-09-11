@@ -5,6 +5,8 @@
 #include <netinet/in.h>
 #include <unistd.h>
 
+#include "Telemetry.h"
+
 int main()
 {
     const int port = 5000;
@@ -55,7 +57,22 @@ int main()
 
     buffer[bytesReceived] = '\0';
 
-    std::cout << "Received: " << buffer << '\n';
+    try
+    {
+        Telemetry telemetry = parseTelemetry(buffer);
+
+        std::cout
+            << "Device: " << telemetry.deviceId << '\n'
+            << "Temperature: " << telemetry.temperature << '\n'
+            << "Signal: " << telemetry.signalStrength << " dBm\n"
+            << "Sequence: " << telemetry.sequenceNumber << '\n';
+    }
+    catch (const std::exception& error)
+    {
+        std::cerr << "Invalid telemetry: "
+              << error.what()
+              << '\n';
+    }
 
     close(socketFd);
 

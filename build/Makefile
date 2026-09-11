@@ -190,6 +190,30 @@ simulator/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/device_simulator.dir/build.make CMakeFiles/device_simulator.dir/simulator/main.cpp.s
 .PHONY : simulator/main.cpp.s
 
+src/Telemetry.o: src/Telemetry.cpp.o
+.PHONY : src/Telemetry.o
+
+# target to build an object file
+src/Telemetry.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/device_monitor.dir/build.make CMakeFiles/device_monitor.dir/src/Telemetry.cpp.o
+.PHONY : src/Telemetry.cpp.o
+
+src/Telemetry.i: src/Telemetry.cpp.i
+.PHONY : src/Telemetry.i
+
+# target to preprocess a source file
+src/Telemetry.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/device_monitor.dir/build.make CMakeFiles/device_monitor.dir/src/Telemetry.cpp.i
+.PHONY : src/Telemetry.cpp.i
+
+src/Telemetry.s: src/Telemetry.cpp.s
+.PHONY : src/Telemetry.s
+
+# target to generate assembly for a file
+src/Telemetry.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/device_monitor.dir/build.make CMakeFiles/device_monitor.dir/src/Telemetry.cpp.s
+.PHONY : src/Telemetry.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -206,6 +230,9 @@ help:
 	@echo "... simulator/main.o"
 	@echo "... simulator/main.i"
 	@echo "... simulator/main.s"
+	@echo "... src/Telemetry.o"
+	@echo "... src/Telemetry.i"
+	@echo "... src/Telemetry.s"
 .PHONY : help
 
 

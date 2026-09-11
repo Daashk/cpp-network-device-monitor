@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/daashk/projects/cpp-network-device-monitor/monitor/main.cpp" "CMakeFiles/device_monitor.dir/monitor/main.cpp.o" "gcc" "CMakeFiles/device_monitor.dir/monitor/main.cpp.o.d"
+  "/home/daashk/projects/cpp-network-device-monitor/src/Telemetry.cpp" "CMakeFiles/device_monitor.dir/src/Telemetry.cpp.o" "gcc" "CMakeFiles/device_monitor.dir/src/Telemetry.cpp.o.d"
   "" "device_monitor" "gcc" "CMakeFiles/device_monitor.dir/link.d"
   )
 

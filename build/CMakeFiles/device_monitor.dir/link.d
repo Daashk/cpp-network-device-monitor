@@ -3,6 +3,7 @@ device_monitor: \
   /usr/lib64/gcc/x86_64-suse-linux/16/../../../../lib64/crti.o \
   /usr/lib64/gcc/x86_64-suse-linux/16/crtbegin.o \
   CMakeFiles/device_monitor.dir/monitor/main.cpp.o \
+  CMakeFiles/device_monitor.dir/src/Telemetry.cpp.o \
   /usr/lib64/gcc/x86_64-suse-linux/16/libstdc++.so \
   /usr/lib64/gcc/x86_64-suse-linux/16/../../../../lib64/libm.so \
   /usr/lib64/gcc/x86_64-suse-linux/16/../../../../lib64/libm.so \
@@ -42,6 +43,8 @@ device_monitor: \
 /usr/lib64/gcc/x86_64-suse-linux/16/crtbegin.o:
 
 CMakeFiles/device_monitor.dir/monitor/main.cpp.o:
+
+CMakeFiles/device_monitor.dir/src/Telemetry.cpp.o:
 
 /usr/lib64/gcc/x86_64-suse-linux/16/libstdc++.so:
 
