@@ -1,22 +1,15 @@
 #include <iostream>
-#include <cstring>
-
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <unistd.h>
-
-#include "Telemetry.h"
-
-#include "DeviceState.h"
-
 #include <unordered_map>
 #include <chrono>
-
-#include "ThreadSafeQueue.h"
-
 #include <thread>
 #include <string>
 
+#include <sys/socket.h>
+#include <netinet/in.h>
+
+#include "Telemetry.h"
+#include "DeviceState.h"
+#include "ThreadSafeQueue.h"
 #include "UdpSocket.h"
 
 int main()
@@ -41,8 +34,6 @@ int main()
 
     std::cout << "Device Monitor is listening on port "
               << port << "...\n";
-
-    char buffer[1024]{};
 
     std::unordered_map<std::string, DeviceState> devices;
 

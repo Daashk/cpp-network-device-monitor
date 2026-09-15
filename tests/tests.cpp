@@ -116,6 +116,48 @@ void testDeviceStillOnline()
     );
 }
 
+void testTrailingCharacters()
+{
+    bool exceptionThrown = false;
+
+    try
+    {
+        parseTelemetry(
+            "DEVICE01|42.5abc|-63|12"
+        );
+    }
+    catch (const std::exception&)
+    {
+        exceptionThrown = true;
+    }
+
+    expect(
+        exceptionThrown,
+        "trailing characters should be rejected"
+    );
+}
+
+void testExtraFields()
+{
+    bool exceptionThrown = false;
+
+    try
+    {
+        parseTelemetry(
+            "DEVICE01|42.5|-63|12|EXTRA"
+        );
+    }
+    catch (const std::exception&)
+    {
+        exceptionThrown = true;
+    }
+
+    expect(
+        exceptionThrown,
+        "extra fields should be rejected"
+    );
+}
+
 int main()
 {
     try
@@ -125,6 +167,8 @@ int main()
         testMissingFields();
         testDeviceOffline();
         testDeviceStillOnline();
+        testTrailingCharacters();
+        testExtraFields();
 
         std::cout << "All tests passed!\n";
         return 0;

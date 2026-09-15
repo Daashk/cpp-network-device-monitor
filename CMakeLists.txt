@@ -6,6 +6,14 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    add_compile_options(
+        -Wall
+        -Wextra
+        -Wpedantic
+    )
+endif()
+
 find_package(Threads REQUIRED)
 
 add_executable(
@@ -52,7 +60,7 @@ target_include_directories(
     PRIVATE
     include
 )
-
+ 
 add_test(
     NAME DeviceTests
     COMMAND device_tests

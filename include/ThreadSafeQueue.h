@@ -5,6 +5,8 @@
 #include <condition_variable>
 #include <chrono>
 
+#include <utility>
+
 template <typename T>
 class ThreadSafeQueue
 {
