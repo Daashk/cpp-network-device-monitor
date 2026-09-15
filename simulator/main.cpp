@@ -9,18 +9,14 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
+#include "UdpSocket.h"
+
 int main()
 {
     const int port = 5000;
     const std::string serverIp = "127.0.0.1";
 
-    int socketFd = socket(AF_INET, SOCK_DGRAM, 0);
-
-    if (socketFd < 0)
-    {
-        std::cerr << "Failed to create socket\n";
-        return 1;
-    }
+    UdpSocket socket;
 
     sockaddr_in serverAddress{};
     serverAddress.sin_family = AF_INET;
@@ -30,11 +26,10 @@ int main()
             AF_INET,
             serverIp.c_str(),
             &serverAddress.sin_addr) <= 0)
-    {
-        std::cerr << "Invalid server address\n";
-        close(socketFd);
-        return 1;
-    }
+        {
+            std::cerr << "Invalid server address\n";
+            return 1;
+        }
 
     std::vector<std::string> devices =
     {
@@ -80,7 +75,7 @@ int main()
                 std::to_string(sequenceNumber);
 
             ssize_t bytesSent = sendto(
-                socketFd,
+                socket.fd(),
                 message.c_str(),
                 message.size(),
                 0,
@@ -91,7 +86,6 @@ int main()
             if (bytesSent < 0)
             {
                 std::cerr << "Failed to send data\n";
-                close(socketFd);
                 return 1;
             }
 
@@ -106,8 +100,6 @@ int main()
             std::chrono::seconds(1)
         );
     }
-
-    close(socketFd);
 
     return 0;
 }

@@ -214,6 +214,33 @@ src/Telemetry.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/device_monitor.dir/build.make CMakeFiles/device_monitor.dir/src/Telemetry.cpp.s
 .PHONY : src/Telemetry.cpp.s
 
+src/UdpSocket.o: src/UdpSocket.cpp.o
+.PHONY : src/UdpSocket.o
+
+# target to build an object file
+src/UdpSocket.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/device_monitor.dir/build.make CMakeFiles/device_monitor.dir/src/UdpSocket.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/device_simulator.dir/build.make CMakeFiles/device_simulator.dir/src/UdpSocket.cpp.o
+.PHONY : src/UdpSocket.cpp.o
+
+src/UdpSocket.i: src/UdpSocket.cpp.i
+.PHONY : src/UdpSocket.i
+
+# target to preprocess a source file
+src/UdpSocket.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/device_monitor.dir/build.make CMakeFiles/device_monitor.dir/src/UdpSocket.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/device_simulator.dir/build.make CMakeFiles/device_simulator.dir/src/UdpSocket.cpp.i
+.PHONY : src/UdpSocket.cpp.i
+
+src/UdpSocket.s: src/UdpSocket.cpp.s
+.PHONY : src/UdpSocket.s
+
+# target to generate assembly for a file
+src/UdpSocket.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/device_monitor.dir/build.make CMakeFiles/device_monitor.dir/src/UdpSocket.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/device_simulator.dir/build.make CMakeFiles/device_simulator.dir/src/UdpSocket.cpp.s
+.PHONY : src/UdpSocket.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -233,6 +260,9 @@ help:
 	@echo "... src/Telemetry.o"
 	@echo "... src/Telemetry.i"
 	@echo "... src/Telemetry.s"
+	@echo "... src/UdpSocket.o"
+	@echo "... src/UdpSocket.i"
+	@echo "... src/UdpSocket.s"
 .PHONY : help
 
 

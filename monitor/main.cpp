@@ -17,17 +17,13 @@
 #include <thread>
 #include <string>
 
+#include "UdpSocket.h"
+
 int main()
 {
     const int port = 5000;
 
-    int socketFd = socket(AF_INET, SOCK_DGRAM, 0);
-
-    if (socketFd < 0)
-    {
-        std::cerr << "Failed to create socket\n";
-        return 1;
-    }
+    UdpSocket socket;
 
     sockaddr_in serverAddress{};
     serverAddress.sin_family = AF_INET;
@@ -35,12 +31,11 @@ int main()
     serverAddress.sin_port = htons(port);
 
     if (bind(
-            socketFd,
+            socket.fd(),
             reinterpret_cast<sockaddr*>(&serverAddress),
             sizeof(serverAddress)) < 0)
     {
         std::cerr << "Failed to bind socket\n";
-        close(socketFd);
         return 1;
     }
 
@@ -64,7 +59,7 @@ int main()
             while (true)
             {
                 ssize_t bytesReceived = recvfrom(
-                    socketFd,
+                    socket.fd(),
                     buffer,
                     sizeof(buffer) - 1,
                     0,
@@ -165,8 +160,6 @@ int main()
             }
         }
     }
-
-    close(socketFd);
 
     return 0;
 }

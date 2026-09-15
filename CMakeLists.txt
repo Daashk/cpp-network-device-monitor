@@ -12,20 +12,29 @@ add_executable(
     device_monitor
     monitor/main.cpp
     src/Telemetry.cpp
+    src/UdpSocket.cpp
 )
 
 target_include_directories(
     device_monitor
-    PRIVATE include
+    PRIVATE
+    include
 )
 
 target_link_libraries(
     device_monitor
-    PRIVATE Threads::Threads
+    PRIVATE
+    Threads::Threads
 )
 
 add_executable(
     device_simulator
     simulator/main.cpp
+    src/UdpSocket.cpp
 )
 
+target_include_directories(
+    device_simulator
+    PRIVATE
+    include
+)

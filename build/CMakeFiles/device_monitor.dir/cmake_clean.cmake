@@ -4,6 +4,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/device_monitor.dir/monitor/main.cpp.o.d"
   "CMakeFiles/device_monitor.dir/src/Telemetry.cpp.o"
   "CMakeFiles/device_monitor.dir/src/Telemetry.cpp.o.d"
+  "CMakeFiles/device_monitor.dir/src/UdpSocket.cpp.o"
+  "CMakeFiles/device_monitor.dir/src/UdpSocket.cpp.o.d"
   "device_monitor"
   "device_monitor.pdb"
 )
