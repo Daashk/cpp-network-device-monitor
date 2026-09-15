@@ -150,4 +150,18 @@ CMakeFiles/device_monitor.dir/monitor/main.cpp.o: \
  /usr/include/bits/environments.h /usr/include/bits/confname.h \
  /usr/include/bits/getopt_posix.h /usr/include/bits/getopt_core.h \
  /usr/include/bits/unistd_ext.h /usr/include/linux/close_range.h \
- /home/daashk/projects/cpp-network-device-monitor/include/Telemetry.h
+ /home/daashk/projects/cpp-network-device-monitor/include/Telemetry.h \
+ /home/daashk/projects/cpp-network-device-monitor/include/DeviceState.h \
+ /usr/include/c++/16/chrono /usr/include/c++/16/bits/chrono.h \
+ /usr/include/c++/16/ratio /usr/include/c++/16/cstdint \
+ /usr/lib64/gcc/x86_64-suse-linux/16/include/stdint.h \
+ /usr/include/stdint.h /usr/include/bits/stdint-least.h \
+ /usr/include/c++/16/limits /usr/include/c++/16/ctime \
+ /usr/include/c++/16/bits/parse_numbers.h \
+ /usr/include/c++/16/unordered_map \
+ /usr/include/c++/16/bits/unordered_map.h \
+ /usr/include/c++/16/bits/hashtable.h \
+ /usr/include/c++/16/bits/hashtable_policy.h \
+ /usr/include/c++/16/ext/aligned_buffer.h \
+ /usr/include/c++/16/bits/enable_special_members.h \
+ /usr/include/c++/16/bits/node_handle.h

@@ -7,6 +7,11 @@
 
 #include "Telemetry.h"
 
+#include "DeviceState.h"
+
+#include <unordered_map>
+#include <chrono>
+
 int main()
 {
     const int port = 5000;
@@ -39,6 +44,11 @@ int main()
 
     char buffer[1024]{};
 
+    std::unordered_map<std::string, DeviceState> devices;
+
+    const auto offlineTimeout =
+    std::chrono::seconds(3);
+
     while (true)
     {
         ssize_t bytesReceived = recvfrom(
@@ -62,8 +72,62 @@ int main()
         {
             Telemetry telemetry = parseTelemetry(buffer);
 
+            DeviceState state{
+                telemetry,
+                std::chrono::steady_clock::now()
+            };
+
+            auto now = std::chrono::steady_clock::now();
+
+            auto deviceIt = devices.find(telemetry.deviceId);
+
+            if (deviceIt == devices.end())
+            {
+                devices.emplace(
+                telemetry.deviceId,
+                DeviceState{
+                    telemetry,
+                    now,
+                    true
+                }
+                );
+
             std::cout
-                << "Device: " << telemetry.deviceId
+                << telemetry.deviceId
+                << " is ONLINE\n";
+            }
+        else
+            {
+                bool wasOffline = !deviceIt->second.online;
+
+                deviceIt->second.telemetry = telemetry;
+                deviceIt->second.lastSeen = now;
+                deviceIt->second.online = true;
+
+                if (wasOffline)
+                    {
+                        std::cout
+                            << telemetry.deviceId
+                            << " is ONLINE again\n";
+                    }
+            }
+
+        for (auto& [deviceId, state] : devices)
+            {
+                if (state.online &&
+                now - state.lastSeen > offlineTimeout)
+                {
+                state.online = false;
+
+                std::cout
+                    << "*** "
+                    << deviceId
+                    << " is OFFLINE ***\n";
+                }
+            }
+
+        std::cout
+                << "Updated " << telemetry.deviceId
                 << " | Temperature: "
                 << telemetry.temperature
                 << " C"
@@ -72,6 +136,8 @@ int main()
                 << " dBm"
                 << " | Sequence: "
                 << telemetry.sequenceNumber
+                << " | Devices known: "
+                << devices.size()
                 << '\n';
         }
         catch (const std::exception& error)

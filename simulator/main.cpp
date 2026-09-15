@@ -60,6 +60,13 @@ int main()
     {
         for (const std::string& deviceId : devices)
         {
+            if (deviceId == "DEVICE03" &&
+                sequenceNumber >= 6 &&
+                sequenceNumber <= 10)
+                {
+                    continue;
+                }
+            
             double temperature =
                 temperatureDistribution(generator);
 
