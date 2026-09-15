@@ -34,7 +34,11 @@ tracking, and automated testing on Linux.
 - CMake
 - CTest
 
+## Known Limitations
 
+- The sample applications are currently terminated with Ctrl+C.
+  A production version would use explicit shutdown signalling and
+  join the receiver thread before exit.
 
 ## Architecture
 
@@ -56,3 +60,4 @@ Main Processing Thread
    +--> Update Device State
    |
    +--> Detect ONLINE / OFFLINE Devices
+
