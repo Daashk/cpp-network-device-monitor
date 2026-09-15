@@ -1,4 +1,0 @@
-/home/daashk/projects/cpp-network-device-monitor/build/CMakeFiles/device_monitor.dir
-/home/daashk/projects/cpp-network-device-monitor/build/CMakeFiles/device_simulator.dir
-/home/daashk/projects/cpp-network-device-monitor/build/CMakeFiles/edit_cache.dir
-/home/daashk/projects/cpp-network-device-monitor/build/CMakeFiles/rebuild_cache.dir

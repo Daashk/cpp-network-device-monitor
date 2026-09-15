@@ -149,7 +149,7 @@ int main()
         for (auto& [deviceId, state] : devices)
         {
             if (state.online &&
-                now - state.lastSeen > offlineTimeout)
+                isOffline(state, now, offlineTimeout))
             {
                 state.online = false;
 

@@ -38,3 +38,22 @@ target_include_directories(
     PRIVATE
     include
 )
+
+enable_testing()
+
+add_executable(
+    device_tests
+    tests/tests.cpp
+    src/Telemetry.cpp
+)
+
+target_include_directories(
+    device_tests
+    PRIVATE
+    include
+)
+
+add_test(
+    NAME DeviceTests
+    COMMAND device_tests
+)
