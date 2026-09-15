@@ -12,6 +12,11 @@
 #include <unordered_map>
 #include <chrono>
 
+#include "ThreadSafeQueue.h"
+
+#include <thread>
+#include <string>
+
 int main()
 {
     const int port = 5000;
@@ -46,106 +51,118 @@ int main()
 
     std::unordered_map<std::string, DeviceState> devices;
 
+    ThreadSafeQueue<std::string> messageQueue;
+
     const auto offlineTimeout =
-    std::chrono::seconds(3);
+        std::chrono::seconds(3);
+
+    std::thread receiverThread(
+        [&]()
+        {
+            char buffer[1024]{};
+
+            while (true)
+            {
+                ssize_t bytesReceived = recvfrom(
+                    socketFd,
+                    buffer,
+                    sizeof(buffer) - 1,
+                    0,
+                    nullptr,
+                    nullptr
+                );
+
+                if (bytesReceived < 0)
+                {
+                    continue;
+                }
+
+                buffer[bytesReceived] = '\0';
+
+                messageQueue.push(
+                    std::string(buffer, bytesReceived)
+                );
+            }
+        }
+    );
 
     while (true)
     {
-        ssize_t bytesReceived = recvfrom(
-            socketFd,
-            buffer,
-            sizeof(buffer) - 1,
-            0,
-            nullptr,
-            nullptr
+        std::string message;
+
+        bool received = messageQueue.waitPopFor(
+            message,
+            std::chrono::milliseconds(500)
         );
 
-        if (bytesReceived < 0)
+        auto now =
+            std::chrono::steady_clock::now();
+
+        if (received)
         {
-            std::cerr << "Failed to receive data\n";
-            break;
-        }
-
-        buffer[bytesReceived] = '\0';
-
-        try
-        {
-            Telemetry telemetry = parseTelemetry(buffer);
-
-            DeviceState state{
-                telemetry,
-                std::chrono::steady_clock::now()
-            };
-
-            auto now = std::chrono::steady_clock::now();
-
-            auto deviceIt = devices.find(telemetry.deviceId);
-
-            if (deviceIt == devices.end())
+            try
             {
-                devices.emplace(
-                telemetry.deviceId,
-                DeviceState{
-                    telemetry,
-                    now,
-                    true
+                Telemetry telemetry =
+                    parseTelemetry(message);
+
+                auto deviceIt =
+                    devices.find(telemetry.deviceId);
+
+                if (deviceIt == devices.end())
+                {
+                    devices.emplace(
+                        telemetry.deviceId,
+                        DeviceState{
+                            telemetry,
+                            now,
+                            true
+                        }
+                    );
+
+                    std::cout
+                        << telemetry.deviceId
+                        << " is ONLINE\n";
                 }
-                );
+                else
+                {
+                    bool wasOffline =
+                        !deviceIt->second.online;
 
-            std::cout
-                << telemetry.deviceId
-                << " is ONLINE\n";
-            }
-        else
-            {
-                bool wasOffline = !deviceIt->second.online;
+                    deviceIt->second.telemetry =
+                        telemetry;
 
-                deviceIt->second.telemetry = telemetry;
-                deviceIt->second.lastSeen = now;
-                deviceIt->second.online = true;
+                    deviceIt->second.lastSeen = now;
+                    deviceIt->second.online = true;
 
-                if (wasOffline)
+                    if (wasOffline)
                     {
                         std::cout
                             << telemetry.deviceId
                             << " is ONLINE again\n";
                     }
+                }
             }
+            catch (const std::exception& error)
+            {
+                std::cerr
+                    << "Invalid telemetry: "
+                    << error.what()
+                    << '\n';
+            }
+        }
 
         for (auto& [deviceId, state] : devices)
-            {
-                if (state.online &&
+        {
+            if (state.online &&
                 now - state.lastSeen > offlineTimeout)
-                {
+            {
                 state.online = false;
 
                 std::cout
                     << "*** "
                     << deviceId
                     << " is OFFLINE ***\n";
-                }
             }
-
-        std::cout
-                << "Updated " << telemetry.deviceId
-                << " | Temperature: "
-                << telemetry.temperature
-                << " C"
-                << " | Signal: "
-                << telemetry.signalStrength
-                << " dBm"
-                << " | Sequence: "
-                << telemetry.sequenceNumber
-                << " | Devices known: "
-                << devices.size()
-                << '\n';
-        }
-        catch (const std::exception& error)
-        {
-            std::cerr
-                << "Invalid telemetry: "
-                << error.what()
-                << '\n';
         }
     }
 

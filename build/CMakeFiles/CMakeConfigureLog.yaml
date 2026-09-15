@@ -972,3 +972,42 @@ events:
       Running the CXX compiler's linker: "/usr/lib64/gcc/x86_64-suse-linux/16/../../../../x86_64-suse-linux/bin/ld" "-v"
       GNU ld (GNU Binutils; openSUSE Tumbleweed) 2.45.0.20251103-4
 ...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/Internal/CheckSourceCompiles.cmake:81 (try_compile)"
+      - "/usr/share/cmake/Modules/CheckCXXSourceCompiles.cmake:103 (cmake_check_source_compiles)"
+      - "/usr/share/cmake/Modules/FindThreads.cmake:162 (check_cxx_source_compiles)"
+      - "/usr/share/cmake/Modules/FindThreads.cmake:226 (_threads_check_libc)"
+      - "CMakeLists.txt:9 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "/home/daashk/projects/cpp-network-device-monitor/build/CMakeFiles/CMakeScratch/TryCompile-c1j3qY"
+      binary: "/home/daashk/projects/cpp-network-device-monitor/build/CMakeFiles/CMakeScratch/TryCompile-c1j3qY"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_CXX_STDLIB_MODULES_JSON: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: '/home/daashk/projects/cpp-network-device-monitor/build/CMakeFiles/CMakeScratch/TryCompile-c1j3qY'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_3635e/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_3635e.dir/build.make CMakeFiles/cmTC_3635e.dir/build
+        gmake[1]: Entering directory '/home/daashk/projects/cpp-network-device-monitor/build/CMakeFiles/CMakeScratch/TryCompile-c1j3qY'
+        Building CXX object CMakeFiles/cmTC_3635e.dir/src.cxx.o
+        /usr/bin/c++ -DCMAKE_HAVE_LIBC_PTHREAD  -std=c++17 -o CMakeFiles/cmTC_3635e.dir/src.cxx.o -c /home/daashk/projects/cpp-network-device-monitor/build/CMakeFiles/CMakeScratch/TryCompile-c1j3qY/src.cxx
+        Linking CXX executable cmTC_3635e
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3635e.dir/link.txt --verbose=1
+        /usr/bin/c++ CMakeFiles/cmTC_3635e.dir/src.cxx.o -o cmTC_3635e
+        gmake[1]: Leaving directory '/home/daashk/projects/cpp-network-device-monitor/build/CMakeFiles/CMakeScratch/TryCompile-c1j3qY'
+        
+      exitCode: 0
+...

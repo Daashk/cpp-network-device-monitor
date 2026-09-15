@@ -164,4 +164,22 @@ CMakeFiles/device_monitor.dir/monitor/main.cpp.o: \
  /usr/include/c++/16/bits/hashtable_policy.h \
  /usr/include/c++/16/ext/aligned_buffer.h \
  /usr/include/c++/16/bits/enable_special_members.h \
- /usr/include/c++/16/bits/node_handle.h
+ /usr/include/c++/16/bits/node_handle.h \
+ /home/daashk/projects/cpp-network-device-monitor/include/ThreadSafeQueue.h \
+ /usr/include/c++/16/queue /usr/include/c++/16/deque \
+ /usr/include/c++/16/bits/stl_uninitialized.h \
+ /usr/include/c++/16/bits/stl_deque.h /usr/include/c++/16/bits/deque.tcc \
+ /usr/include/c++/16/vector /usr/include/c++/16/bits/stl_vector.h \
+ /usr/include/c++/16/bits/stl_bvector.h \
+ /usr/include/c++/16/bits/vector.tcc /usr/include/c++/16/bits/stl_heap.h \
+ /usr/include/c++/16/bits/stl_queue.h /usr/include/c++/16/mutex \
+ /usr/include/c++/16/bits/std_mutex.h \
+ /usr/include/c++/16/bits/unique_lock.h \
+ /usr/include/c++/16/condition_variable \
+ /usr/include/c++/16/bits/shared_ptr.h \
+ /usr/include/c++/16/bits/shared_ptr_base.h \
+ /usr/include/c++/16/bits/allocated_ptr.h \
+ /usr/include/c++/16/bits/refwrap.h /usr/include/c++/16/bits/unique_ptr.h \
+ /usr/include/c++/16/ext/concurrence.h /usr/include/c++/16/thread \
+ /usr/include/c++/16/bits/std_thread.h \
+ /usr/include/c++/16/bits/this_thread_sleep.h
